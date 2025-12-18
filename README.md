@@ -35,7 +35,7 @@ HTML5/CSS3: Provided by instructor (with minor adjustments by me for content).
 📖 How to Use
 Login: Use a username (initials) and the corresponding PIN.
 
-Example: User: js, PIN: 1111
+Example: User: js, PIN: 1111; User: jd, PIN: 2222; User: stw, PIN: 3333; User: ss, PIN: 4444;
 
 View Balance: Once logged in, your balance and transaction history will load automatically.
 
