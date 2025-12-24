@@ -73,7 +73,7 @@ const usernameAppend = function (accs) {
 };
 usernameAppend(accounts);
 
-// this function displays deposits and withdrawals to the console
+// this function displays deposits and withdrawals when users login
 const accountSummary = function (curAcc) {
   const deposit = curAcc?.movements
     .filter((mov) => mov > 0)
@@ -93,10 +93,12 @@ const accountSummary = function (curAcc) {
 };
 
 // this function attach elements to the html (this is DOM manipulation baby 😋)
-const displayMovement = function (movements) {
+const displayMovement = function (movements, sorted = false) {
   containerMovements.innerHTML = "";
 
-  movements?.forEach(function (mov, i) {
+  const movs = sorted ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs?.forEach(function (mov, i) {
     const movType = mov > 0 ? "deposit" : "withdrawal";
 
     const movementsHtml = `
@@ -160,7 +162,6 @@ const accountActivityLog = function (e) {
   );
   currentAccount = storedCurAcc;
   currentAccountBalance(currentAccount);
-  console.log(currentAccount);
 
   labelWelcome.textContent = `Welcome, ${currentAccount?.owner}`;
   containerApp.style.opacity = 1;
@@ -256,7 +257,7 @@ const requestLoan = function (e) {
     currentAccount.movements = movementAfterLoan;
     reloadData();
   } else {
-    alert(`You can't request a loan greater than 10% of your balanace`)
+    alert(`You can't request a loan greater than 10% of your balanace`);
   }
   currentAccountBalance(currentAccount);
   console.log(currentAccount);
@@ -264,3 +265,13 @@ const requestLoan = function (e) {
   inputLoanAmount.blur();
 };
 btnLoan.addEventListener("click", requestLoan);
+
+const now = new Date();
+console.log(now);
+
+let sorted = false;
+const sortMovements = function () {
+  displayMovement(currentAccount.movements, !sorted);
+  sorted = !sorted;
+};
+btnSort.addEventListener("click", sortMovements);
